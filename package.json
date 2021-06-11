@@ -1,0 +1,28 @@
+{
+  "name": "safe-courier-backend",
+  "version": "1.0.0",
+  "description": "safe-courier backend",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShNorah/safe-courier-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShNorah/safe-courier-backend/issues"
+  },
+  "homepage": "https://github.com/ShNorah/safe-courier-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.13",
+    "nodemon": "^2.0.7"
+  }
+}
