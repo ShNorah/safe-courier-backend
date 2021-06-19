@@ -22,11 +22,9 @@ app.use('api/v1/users', userRoutes);
 
 app.get('api/v1/', (req, res)=>res.send('welcome to safecourier'));
 
-
-
 //connecting to mongodb database
 const CONNECTION_URL = process.env.DB_URL;
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => app.listen(PORT, ()=> console.log(`server runing on port ${PORT}`)))
