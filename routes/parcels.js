@@ -1,7 +1,8 @@
 import express from 'express';
 
-import {getParcels, createParcel} from '../controllers/parcels.js';
+import {getParcels, createParcel, updateParcel, deleteParcel} from '../controllers/parcels.js';
 
+import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -9,5 +10,12 @@ const router = express.Router();
 router.get('/', getParcels);
 
 //create a parcel order
-router.post('/', createParcel);
+router.post('/', auth, createParcel);
+
+//update parcel
+router.patch('/:id', auth, updateParcel);
+
+//deleteparcel
+router.patch('/:id', auth, deleteParcel);
+
 export default router;

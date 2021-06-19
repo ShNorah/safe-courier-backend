@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
 
 const parcelSchema = mongoose.Schema({
-    parcelCode: Number,
-    parcelWeight: Number,
+    parcelCode: String,
+    parcelWeight: String,
+    currentLocation: String,
     parcelDestination: String,
+    name: String,  //name of the loggedin user
     creator: String,
+    description: String,
     createdAt:{
         type:  Date,
         default: new Date()
