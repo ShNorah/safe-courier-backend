@@ -1,5 +1,7 @@
+import mongoose  from 'mongoose';
 import ParcelOrder from '../models/parcel.js'
 
+//get parcels controller
 export const getParcels = async(req, res) =>{
     try{
         const parcelOrders = await ParcelOrder.find();
@@ -16,7 +18,7 @@ export const getParcels = async(req, res) =>{
 export const createParcel = async(req, res) =>{
     
     const parcel = req.body;
-    const newParcel = new ParcelOrder(parcel);
+    const newParcel = new ParcelOrder({...parcel, creator: req.userId, createdAt: new Date().toISOString()});
 
     try{
         await newParcel.save();
@@ -25,4 +27,32 @@ export const createParcel = async(req, res) =>{
         res.status(409).json({message: error.message});
 
     }
+}
+
+//updateparcel controller
+export const updateParcel = async(req, res)=>{
+
+    const {id: _id} = req.params;
+    const parcel = rq.body;
+
+    if (!mongoose.Types.objectId.isValid(_id)) res.status(404).send('no parcel with that id');
+
+   const updatedParcel = await  ParcelOrder. findByIdAndUpdate(_id, parcel, {new: true})
+   res.json(updatedParcel);
+
+
+}
+
+//deleteParcel controller
+export const deleteParcel = async(req, res)=>{
+    const {_id} =req.params;
+
+    if (!mongoose.Types.objectId.isValid(_id)) res.status(404).send('no parcel with that id');
+
+    await ParcelOrder.findByIdAndRemove(id);
+
+    console.log('delete')
+
+    res.json({message: 'parcel deleted successfully'});
+
 }
