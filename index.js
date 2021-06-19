@@ -18,10 +18,10 @@ app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
 app.use(cors());
 
 //middlewwares
-app.use('api/v1/parcels', parcelRoutes);
-app.use('api/v1/users', userRoutes);
+app.use('/api/v1/parcels', parcelRoutes);
+app.use('/api/v1/users', userRoutes);
 
-app.get('api/v1/', (req, res)=>res.send('welcome to safecourier'));
+app.get('/api/v1/', (req, res)=>res.send('welcome to safecourier'));
 
 const PORT = process.env.PORT || 3000;
 
