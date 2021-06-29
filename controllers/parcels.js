@@ -1,9 +1,11 @@
 import mongoose  from 'mongoose';
-import ParcelOrder from '../models/parcel.js'
+import ParcelOrder from '../models/parcel.js';
+import User from '../models/users.js';
 
 //get parcels controller
 export const getParcels = async(req, res) =>{
     try{
+        console.log({user: req.userId});
         const parcelOrders = await ParcelOrder.find();
 
         res.status(200).json(parcelOrders);
@@ -18,7 +20,8 @@ export const getParcels = async(req, res) =>{
 export const createParcel = async(req, res) =>{
     
     const parcel = req.body;
-    const newParcel = new ParcelOrder({...parcel, creator: req.userId, createdAt: new Date().toISOString()});
+    console.log(req.userId.id);
+    const newParcel = new ParcelOrder({...parcel, creator: req.userId.id, createdAt: new Date().toISOString()});
 
     try{
         await newParcel.save();
@@ -32,12 +35,15 @@ export const createParcel = async(req, res) =>{
 //updateparcel controller
 export const updateParcel = async(req, res)=>{
 
-    const {id: _id} = req.params;
-    const parcel = rq.body;
+    const {id} = req.params;
+    const parcel = req.body;
+    console.log(id);
+  //  if (!mongoose.Types.objectId.isValid(id)) res.status(404).send('no parcel with that id');
+    
+    const user = await User.findById(req.userId.id);
+    console.log(user);
 
-    if (!mongoose.Types.objectId.isValid(_id)) res.status(404).send('no parcel with that id');
-
-   const updatedParcel = await  ParcelOrder. findByIdAndUpdate(_id, parcel, {new: true})
+   const updatedParcel = await  ParcelOrder. findByIdAndUpdate(id, parcel, {new: true});
    res.json(updatedParcel);
 
 

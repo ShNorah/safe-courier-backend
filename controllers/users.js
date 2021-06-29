@@ -28,7 +28,7 @@ export const signin = async(req, res)=>{
 
 //signup controller
 export const signup = async(req, res)=>{
-    const {email, password, confirmPassword, firstName, lastName} = req.body
+    const {email, password, confirmPassword, firstName, lastName, userRole} = req.body
 
     try{
         const existingUser = await User.findOne({email});
@@ -43,7 +43,7 @@ export const signup = async(req, res)=>{
         
         const hashedPassword = await encrypt_password(password);
         
-        const newUser = await User.create({email, password: hashedPassword, name:`${firstName} ${lastName}`});
+        const newUser = await User.create({email, userRole, password: hashedPassword, name:`${firstName} ${lastName}`});
         if(newUser) {
             const token = create_token(newUser)
             const userData = {
@@ -51,6 +51,7 @@ export const signup = async(req, res)=>{
                 name:newUser.name,
                 email:newUser.email,
                 password: newUser.password,
+                userRole: newUser.userRole,
                 token:token,
             }
             res.status(200).json(userData);
@@ -68,7 +69,7 @@ const create_token = ({email, password, _id}) => {
         email,
         password,
         id:_id
-    }, 'test', {expiresIn: '1h'})
+    }, 'test', {expiresIn: '24h'})
     return token;
 }
 //This is a helper function that encrypts/hashes the password

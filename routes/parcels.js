@@ -7,7 +7,7 @@ import auth from '../middleware/auth.js';
 const router = express.Router();
 
 //http://localhost:5000/parcels
-router.get('/', getParcels);
+router.get('/', auth, getParcels);
 
 //create a parcel order
 router.post('/', auth, createParcel);

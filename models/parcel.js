@@ -8,6 +8,7 @@ const parcelSchema = mongoose.Schema({
     name: String,  //name of the loggedin user
     creator: String,
     description: String,
+    parcelStatus: String,
     createdAt:{
         type:  Date,
         default: new Date()
