@@ -20,7 +20,7 @@ export const getParcels = async(req, res) =>{
 export const createParcel = async(req, res) =>{
     
     const parcel = req.body;
-    console.log(req.userId.id);
+   // console.log(req.userId.id);
     const newParcel = new ParcelOrder({...parcel, creator: req.userId.id, createdAt: new Date().toISOString()});
 
     try{
