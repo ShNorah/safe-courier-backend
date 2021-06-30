@@ -5,7 +5,7 @@ import User from '../models/users.js';
 //get parcels controller
 export const getParcels = async(req, res) =>{
     try{
-        console.log({user: req.userId});
+       // console.log({user: req.userId});
         const parcelOrders = await ParcelOrder.find();
 
         res.status(200).json(parcelOrders);
@@ -21,7 +21,7 @@ export const createParcel = async(req, res) =>{
     
     const parcel = req.body;
    // console.log(req.userId.id);
-    const newParcel = new ParcelOrder({...parcel, creator: req.userId.id, createdAt: new Date().toISOString()});
+    const newParcel = new ParcelOrder({...parcel, createdAt: new Date().toISOString()});
 
     try{
         await newParcel.save();
@@ -51,13 +51,13 @@ export const updateParcel = async(req, res)=>{
 
 //deleteParcel controller
 export const deleteParcel = async(req, res)=>{
-    const {_id} =req.params;
+    const {id} =req.params;
 
-    if (!mongoose.Types.objectId.isValid(_id)) res.status(404).send('no parcel with that id');
+  // if (!mongoose.Types.objectId.isValid(_id)) res.status(404).send('no parcel with that id');
 
     await ParcelOrder.findByIdAndRemove(id);
 
-    console.log('delete')
+    console.log('parcel deleted')
 
     res.json({message: 'parcel deleted successfully'});
 

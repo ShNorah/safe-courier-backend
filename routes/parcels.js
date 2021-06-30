@@ -10,12 +10,12 @@ const router = express.Router();
 router.get('/',  getParcels);
 
 //create a parcel order
-router.post('/', auth, createParcel);
+router.post('/', createParcel);
 
 //update parcel
 router.patch('/:id', auth, updateParcel);
 
 //deleteparcel
-router.patch('/:id', auth, deleteParcel);
+router.delete('/:id', deleteParcel);
 
 export default router;
